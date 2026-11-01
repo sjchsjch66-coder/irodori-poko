@@ -83,6 +83,12 @@ section.alt{background:var(--soft)}
 .req .btn{padding:10px 22px;font-size:.95rem}
 
 /* シリーズ */
+.video{max-width:860px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 18px;word-break:keep-all;overflow-wrap:anywhere}
+.video h2{font-size:1.15rem;margin:0 0 .5em}
+.video p,.video li{color:var(--muted);font-size:.92rem;margin:0 0 .5em}
+.video ul{margin:0;padding-left:1.2em}
+.video .nw{white-space:nowrap}
+.video code{display:block;margin:.3em 0 .2em;padding:8px 10px;background:var(--bg,#fff);border:1px solid var(--line);border-radius:8px;font-size:.82rem;color:var(--ink);font-family:ui-monospace,Menlo,monospace}
 .series{display:grid;gap:12px;grid-template-columns:1fr;list-style:none;padding:0;margin:0}
 .series a{display:flex;gap:14px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:12px 14px;text-decoration:none;color:var(--ink)}
 .series a.here{border:2px solid var(--accent)}
@@ -200,16 +206,52 @@ main{overflow-x:clip}
 .mo img.rc{filter:grayscale(.86)}
 .recap{font-size:.8rem;color:var(--muted);text-align:center;margin:6px 0 0}
 @media (prefers-reduced-motion:reduce){.hop,.paint,.puff *{animation:none!important}.puff .st{display:none}}
+/* full(11/1): スマホでは ヒーローの絵を はしからはしまで(大きく)。絵が画面より広いときは ゆっくり左右に見わたす(1ドットずつ・動きを減らす設定では止まる) */
+@media (max-width:819px){.hero .art.pxa.full{width:auto;max-width:none;margin:0 -16px;border-radius:0;border-left:0;border-right:0;justify-content:flex-start}
+.mo .hero .art.full img{animation:pan 14s steps(var(--ps,30),end) infinite alternate;animation-delay:1.2s}}
+@keyframes pan{0%,8%{transform:translateX(0)}92%,100%{transform:translateX(min(0px,calc(100vw - var(--w) * var(--k) * 1px)))}}
+@media (prefers-reduced-motion:reduce){.hero .art.full img{animation:none!important}}
+/* なかまの列(ヒーローの絵のすぐ下・ドット絵の 32px を整数倍で) */
+.parade{display:flex;justify-content:center;gap:6px;margin:-30px 0 0;position:relative;z-index:1}
+.parade .px{--kp:2;--kd:2}
+/* 前と後(ならべる) */
+.pair{display:flex;gap:10px;justify-content:center;align-items:center;flex-wrap:nowrap}
+.pair figure{margin:0;text-align:center}.pair+.cap{margin-top:12px}.pair .pxa{border-radius:14px}
+.pair .tag{display:inline-block;font-size:.78rem;font-weight:800;border-radius:99px;padding:1px 10px;margin-top:6px;background:var(--panel);border:1px solid var(--line);color:var(--muted)}
+.pair .tag.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.pair .arw{font-weight:800;color:var(--accent);font-size:1.2rem;flex:none}@media (max-width:419px){.pair .arw{display:none}}
+.kw{word-break:keep-all;overflow-wrap:anywhere}
+/* ぽこってだれ? */
+.poko{padding-top:0}.who{display:flex;gap:18px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px}
+.who .px{--kp:3;--kd:3;flex:none}
+.who h2{margin:0 0 .2em}.who p{margin:0 0 .5em;word-break:keep-all;overflow-wrap:anywhere}.who p:last-child{margin:0}
+.who .say{display:inline-block;background:var(--accent-soft,var(--soft));border-radius:14px;padding:4px 12px;font-weight:700;color:var(--ink)}
+@media (max-width:519px){.who{flex-direction:column;text-align:center}}
+/* ぽこのお話(本編) */
+.hp{display:grid;gap:14px;grid-template-columns:1fr;list-style:none;padding:0;margin:0}
+@media (min-width:820px){.hp{grid-template-columns:1fr 1fr}}
+.hp a{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden;text-decoration:none;color:var(--ink);height:100%}
+.hp a.here{border:2px solid var(--accent)}
+.hp .pxa{border:0;border-radius:0;border-bottom:1px solid var(--line)}
+.hp .px{--kp:2;--kd:2}
+.hp .tx{padding:12px 16px 14px}
+.hp .no{display:inline-block;font-size:.75rem;font-weight:800;color:var(--accent-ink);background:var(--accent);border-radius:99px;padding:1px 10px;margin-right:6px}
+.hp .g{font-size:.8rem;color:var(--muted);font-weight:700}
+.hp b{display:block;font-size:1.1rem;margin:4px 0 2px}
+.hp span.s{display:block;font-size:.9rem;color:var(--muted);line-height:1.6;word-break:keep-all;overflow-wrap:anywhere}
+.hp em{font-style:normal;font-size:.78rem;font-weight:800;color:var(--accent)}
+.hp .arr{font-weight:800;color:var(--accent);text-align:center;margin:-4px 0;font-size:.9rem}
+@media (min-width:820px){.hp .arr{display:none}}
 </style></head>
 <body>
 <div class="wrap top"><a href="../">← 七色パレットゲームズ</a></div>
 <main>
 <div class="hs"><img class="px pk paint l big" src="images/deco_poko32_happy.png" alt="" aria-hidden="true" style="--w:32;--h:32;top:10%;--t:5.00s;--d:0.20s"><img class="px pk paint l" src="images/deco_mimi_happy.png" alt="" aria-hidden="true" style="--w:32;--h:32;top:66%;--t:5.90s;--d:0.33s"><img class="px pk paint r" src="images/deco_shion_happy.png" alt="" aria-hidden="true" style="--w:32;--h:32;top:18%;--t:6.80s;--d:0.46s"><img class="px pk paint r big" src="images/deco_koko_happy.png" alt="" aria-hidden="true" style="--w:32;--h:32;top:60%;--t:7.70s;--d:0.59s"><div class="wrap hero">
- <div class="cw ha"><div class="art pxa" style="--sky:#78c2f2"><img class="px rc" src="images/hero.png" alt="いろどり村のドット絵。パン屋・郵便局・まほうの塔・ふん水のある、緑の丘の村" width="480" height="336" style="--w:160;--h:112;--kp:2;--kd:3" fetchpriority="high" data-gray="images/hero_gray.png" data-mode="load" data-dur="2800"></div><p class="recap">灰色になった村に、色がもどっていきます</p></div>
+ <div class="cw ha"><div class="art pxa full" style="--sky:#78c2f2"><img class="px" src="images/hero.png" alt="色がもどった いろどり村のドット絵。パン屋・郵便局・まほうの塔・ふん水のある、緑の丘の村" width="480" height="336" style="--ps:30;--w:160;--h:112;--kp:3;--kd:3" fetchpriority="high"></div><div class="parade"><img class="px hop" src="images/deco_mimi_happy.png" alt="" aria-hidden="true" width="64" height="64" style="--w:32;--h:32;--t:2.80s;--d:-0.0s"><img class="px hop" src="images/deco_ruka_happy.png" alt="" aria-hidden="true" width="64" height="64" style="--w:32;--h:32;--t:3.17s;--d:-0.9s"><img class="px hop" src="images/deco_poko32_happy.png" alt="" aria-hidden="true" width="64" height="64" style="--w:32;--h:32;--t:3.54s;--d:-1.8s"><img class="px hop" src="images/deco_sora_happy.png" alt="" aria-hidden="true" width="64" height="64" style="--w:32;--h:32;--t:3.91s;--d:-2.7s"><img class="px hop" src="images/deco_nono_happy.png" alt="" aria-hidden="true" width="64" height="64" style="--w:32;--h:32;--t:3.08s;--d:-0.6s"></div></div>
  <div>
   <p class="eyebrow">ドットのいろぬりパズル</p>
   <div class="titlerow"><img class="icon" src="images/icon.png" alt="いろどり村のぽこのアイコン" width="64" height="64"><h1>いろどり村の<wbr>ぽこ</h1></div>
-  <p class="one">いたずら雲に色をぬすまれた、いろどり村。色のしずくの妖精「ぽこ」といっしょに、バケツで絵に色をぬりもどそう。</p>
+  <p class="one kw">いたずら雲に<wbr>色を<wbr>ぬすまれた、<wbr>いろどり村。<wbr>色の<wbr>しずくの<wbr>妖精「ぽこ」と<wbr>いっしょに、<wbr>バケツで<wbr>絵に<wbr>色を<wbr>ぬりもどそう。</p>
   <a class="btn" href="https://apps.apple.com/jp/app/id6817697203">App Store で入手 <small>無料</small></a>
   <ul class="facts"><li>iPhone(iOS 15 以上)</li><li>基本無料・アプリ内課金あり</li><li>3つのマップ・30ステージ</li><li>広告なし</li></ul>
  </div>
@@ -218,13 +260,16 @@ main{overflow-x:clip}
 
 <section class="alt"><img class="px pk paint l big" src="images/deco_ruka_happy.png" alt="" aria-hidden="true" style="--w:32;--h:32;top:30%;--t:5.60s;--d:0.72s"><img class="px pk paint r" src="images/deco_sora_happy.png" alt="" aria-hidden="true" style="--w:32;--h:32;top:16%;--t:6.50s;--d:0.85s"><img class="px pk paint r big" src="images/deco_nono_happy.png" alt="" aria-hidden="true" style="--w:32;--h:32;top:72%;--t:7.40s;--d:0.98s"><div class="wrap">
  <div class="story">
-  <div><div class="hd"><img class="px pf paint r" src="images/deco_ruka_happy.png" alt="" aria-hidden="true" loading="lazy" style="--w:32;--h:32;--t:3.3s;--d:0.30s"><div><p class="eyebrow">STORY</p><h2>色をぬすまれた、<wbr>いろどり村</h2></div></div><p>いたずら雲に色をぬすまれて、灰色になってしまった、いろどり村。</p><p>色のしずくの妖精「ぽこ」といっしょに、バケツで絵に色をぬりもどして、こまっている村のみんなを助けます。</p><p>色がもどるほど、村がにぎやかに。建物を直して、村を強化していきます。</p></div>
-  <div class="cw"><div class="scene pxa" style="--sky:#ffffff"><img class="px rc" src="images/scene.png" alt="ステージ6「空の気球」の絵。ぬったマスに色がもどる" width="336" height="336" loading="lazy" style="--w:112;--h:112;--kp:2;--kd:3" data-gray="images/scene_gray.png" data-mode="view" data-cell="8" data-dur="2400"></div><p class="cap">ステージ6「空の気球」。ぬれるのは、いちばん下の段か、ぬったマスのとなり</p></div>
+  <div><div class="hd"><img class="px pf paint r" src="images/deco_ruka_happy.png" alt="" aria-hidden="true" loading="lazy" style="--w:32;--h:32;--t:3.3s;--d:0.30s"><div><p class="eyebrow">STORY</p><h2>色をぬすまれた、<wbr>いろどり村</h2></div></div><p class="kw">いたずら雲に<wbr>色を<wbr>ぬすまれて、<wbr>灰色に<wbr>なってしまった、<wbr>いろどり村。</p><p class="kw">色の<wbr>しずくの<wbr>妖精「ぽこ」と<wbr>いっしょに、<wbr>バケツで<wbr>絵に<wbr>色を<wbr>ぬりもどして、<wbr>こまっている<wbr>村の<wbr>みんなを<wbr>助けます。</p><p class="kw">色が<wbr>もどるほど、<wbr>村が<wbr>にぎやかに。<wbr>建物を<wbr>直して、<wbr>村を<wbr>強化して<wbr>いきます。</p></div>
+  <div class="cw"><div class="pair"><figure><div class="pxa" style="--sky:#ffffff"><img class="px" src="images/scene_before.png" alt="ステージ6「空の気球」の ぬるまえの絵。灰色のマス" width="168" height="168" loading="lazy" style="--w:84;--h:84;--kp:2;--kd:2"></div><span class="tag">ぬるまえ</span></figure><span class="arw" aria-hidden="true">→</span><figure><div class="pxa" style="--sky:#ffffff"><img class="px" src="images/scene.png" alt="ステージ6「空の気球」を ぬったあとの絵。カラフルな気球" width="168" height="168" loading="lazy" style="--w:84;--h:84;--kp:2;--kd:2"></div><span class="tag on">ぬったあと</span></figure></div><p class="cap">ステージ6「空の気球」。ぬれるのは、いちばん下の段か、ぬったマスのとなり</p></div>
  </div>
  <h3 style="margin:34px 0 0;font-size:1.15rem">3つのマップ</h3><p class="lead" style="margin-bottom:0">いろどり村・きらめき港・わたゆき高原。色をもどすたびに、村の建物が直っていきます。</p>
  <div class="strip"><figure><div class="pxa" style="--sky:#78c2f2"><img class="px" src="images/strip1.png" alt="緑の丘のいろどり村" width="320" height="224" loading="lazy" style="--w:160;--h:112;--kp:2;--kd:2"></div><figcaption class="cap"><b>マップ1 いろどり村</b></figcaption></figure><figure><div class="pxa" style="--sky:#78c2f2"><img class="px" src="images/strip2.png" alt="灯台と砂浜のきらめき港" width="320" height="224" loading="lazy" style="--w:160;--h:112;--kp:2;--kd:2"></div><figcaption class="cap"><b>マップ2 きらめき港</b></figcaption></figure><figure><div class="pxa" style="--sky:#c9d6e8"><img class="px" src="images/strip3.png" alt="雪の山のわたゆき高原" width="320" height="224" loading="lazy" style="--w:160;--h:112;--kp:2;--kd:2"></div><figcaption class="cap"><b>マップ3 わたゆき高原</b></figcaption></figure></div><p class="swipe">← よこにスクロールできます →</p>
  <div class="shots2"><figure><img src="images/screen1.webp" alt="ぬるまえ と ぬったあと の盤の画面" loading="lazy" width="660" height="1434"><figcaption>灰色の絵がカラフルに</figcaption></figure><figure><img src="images/screen2.webp" alt="村の色がもどっていく画面" loading="lazy" width="660" height="1434"><figcaption>ぬるほど村がにぎやかに</figcaption></figure><figure><img src="images/screen3.webp" alt="ステージクリアの画面" loading="lazy" width="660" height="1434"><figcaption>えらぶ順番がカギ</figcaption></figure><figure><img src="images/screen4.webp" alt="村の住人の画面" loading="lazy" width="660" height="1434"><figcaption>住人となかよくなる</figcaption></figure><figure><img src="images/screen5.webp" alt="マップの画面" loading="lazy" width="660" height="1434"><figcaption>3マップ・30ステージ</figcaption></figure></div>
 </div></section>
+
+<section class="alt poko">
+<div class="wrap"><div class="who"><img class="px hop" src="images/poko.png" alt="ぽこ" loading="lazy" width="144" height="144" style="--w:48;--h:48;--t:3.4s"><div><p class="eyebrow">WHO IS POKO</p><h2>ぽこって<wbr>だれ?</h2><p>色の<wbr>しずくの<wbr>妖精。<wbr>七色パレットゲームズの<wbr>案内役です。</p><p>このゲームでは、<wbr>いたずら雲に<wbr>色を<wbr>ぬすまれた<wbr>いろどり村で、<wbr>村の<wbr>みんなと<wbr>いっしょに<wbr>色を<wbr>ぬりもどします。</p><p><span class="say">ぼく、ぽこ! いっしょに色をとりもどそう!</span></p></div></div><div class="hd" style="margin-top:34px"><div><p class="eyebrow">STORY OF POKO</p><h2>ぽこのお話<wbr>(本編)</h2></div></div><p class="lead">ぽこが主人公の、いろどり村の物語。どちらから遊んでも楽しめます。</p><ul class="hp"><li><a class="here" href="../irodori-poko/"><div class="pxa" style="--sky:#78c2f2"><img class="px" src="images/honpen1.png" alt="色がもどった いろどり村のドット絵" width="320" height="224" loading="lazy" style="--w:160;--h:112;--kp:2;--kd:2"></div><div class="tx"><span class="no">第1作</span><span class="g">ドットのいろぬりパズル</span><b>いろどり村のぽこ</b><span class="s">いたずら雲に色をぬすまれた村に、バケツで色をぬりもどすお話。</span><em>このページ</em></div></a></li><li><a href="../marche/"><div class="pxa" style="--sky:#7fc7f3"><img class="px" src="images/honpen2.png" alt="ドット絵のいろどりカフェ本店" width="300" height="224" loading="lazy" style="--w:150;--h:112;--kp:2;--kd:2"></div><div class="tx"><span class="no">第2作</span><span class="g">ドット絵のマージ×カフェ経営</span><b>ぽこのマルシェ</b><span class="s">いろどり村のなかまといっしょに、マルシェで小さなカフェ屋台を開くお話。</span><em>予約受付中・11月6日配信</em></div></a></li></ul></div></section>
 
 <section><img class="px pk paint l" src="images/deco_kohaku_happy.png" alt="" aria-hidden="true" style="--w:32;--h:32;top:20%;--t:5.30s;--d:0.31s"><img class="px pk paint l big" src="images/deco_mint_happy.png" alt="" aria-hidden="true" style="--w:32;--h:32;top:70%;--t:6.20s;--d:0.44s"><img class="px pk paint r big" src="images/deco_hayate_happy.png" alt="" aria-hidden="true" style="--w:32;--h:32;top:44%;--t:7.10s;--d:0.57s"><div class="wrap">
  <div class="hd"><img class="px pf paint l" src="images/deco_kohaku_happy.png" alt="" aria-hidden="true" loading="lazy" style="--w:32;--h:32;--t:3.6s;--d:0.40s"><div><p class="eyebrow">POINT</p><h2>えらぶ順番が、<wbr>カギになる</h2></div></div><p class="lead">ルールはかんたん。でも、考えるほどおもしろいパズルです。</p>
@@ -248,7 +293,7 @@ main{overflow-x:clip}
 
 <section><img class="px pk paint l" src="images/deco_sora_happy.png" alt="" aria-hidden="true" style="--w:32;--h:32;top:56%;--t:5.30s;--d:0.81s"><img class="px pk paint r big" src="images/deco_nono_happy.png" alt="" aria-hidden="true" style="--w:32;--h:32;top:10%;--t:6.20s;--d:0.94s"><div class="wrap">
  <div class="hd"><img class="px pf paint l" src="images/deco_kohaku_happy.png" alt="" aria-hidden="true" loading="lazy" style="--w:32;--h:32;--t:4.8s;--d:0.80s"><div><p class="eyebrow">GAMES</p><h2>七色パレットゲームズの<wbr> ほかのゲーム</h2></div></div><p class="lead">どのゲームも「いろどり村の世界」でつながっています。どこからでもどうぞ。</p>
- <ul class="series"><li><a class="here" href="../irodori-poko/"><img src="../images/irodori.png" alt="いろどり村のぽこのアイコン" loading="lazy" width="64" height="64" style="image-rendering:pixelated"><div><b>いろどり村のぽこ</b><span>ドットのいろぬりパズル。灰色の村に色をとりもどそう</span><em>このページ</em></div></a></li><li><a href="../marche/"><img src="../marche/images/icon.png" alt="ぽこのマルシェのアイコン" loading="lazy" width="64" height="64" style="image-rendering:pixelated"><div><b>ぽこのマルシェ</b><span>いろどり村のなかまが店員に。マージ×カフェ経営</span><em>予約受付中</em></div></a></li><li><a href="../panya/"><img src="../panya/images/icon.png" alt="パン屋さん経営ゲーム ミミの世界のパンのアイコン" loading="lazy" width="64" height="64" style="image-rendering:pixelated"><div><b>パン屋さん経営ゲーム ミミの世界のパン</b><span>ミミが世界のパンをめぐる、タップと放置のパン屋さん</span><em>配信中</em></div></a></li><li><a href="../machigai/"><img src="../machigai/images/icon.png" alt="ぽことまちがいさがしのアイコン" loading="lazy" width="64" height="64" style="image-rendering:pixelated"><div><b>ぽことまちがいさがし</b><span>2まいのドット絵をくらべる、かわいい脳トレ</span><em>配信中</em></div></a></li><li><a href="../nurie/"><img src="../nurie/images/icon.png" alt="のんびりぽこと数字ぬりえのアイコン" loading="lazy" width="64" height="64" style="image-rendering:pixelated"><div><b>のんびりぽこと数字ぬりえ</b><span>番号どおりにぬるだけ。のんびりぬりえ</span><em>配信中</em></div></a></li><li><a href="../kotono/"><img src="../kotono/images/icon.png" alt="ことのと おでかけ大作戦のアイコン" loading="lazy" width="64" height="64" style="image-rendering:pixelated"><div><b>ことのと おでかけ大作戦</b><span>からくり好きの女の子と、3つの場所からの脱出</span><em>配信中</em></div></a></li><li><a href="../lupina/"><img src="../lupina/images/icon.png" alt="ルピナと星の塔のアイコン" loading="lazy" width="64" height="64" style="image-rendering:pixelated"><div><b>ルピナと星の塔</b><span>見習い魔女の進級試験は、塔からの脱出</span><em>10月30日 配信</em></div></a></li></ul>
+ <ul class="series"><li><a class="here" href="../irodori-poko/"><img src="../images/irodori.png" alt="いろどり村のぽこのアイコン" loading="lazy" width="64" height="64" style="image-rendering:pixelated"><div><b>いろどり村のぽこ</b><span>ドットのいろぬりパズル。灰色の村に色をとりもどそう</span><em>このページ</em></div></a></li><li><a href="../marche/"><img src="../marche/images/icon.png" alt="ぽこのマルシェのアイコン" loading="lazy" width="64" height="64" style="image-rendering:pixelated"><div><b>ぽこのマルシェ</b><span>いろどり村のなかまが店員に。マージ×カフェ経営</span><em>予約受付中</em></div></a></li><li><a href="../panya/"><img src="../panya/images/icon.png" alt="パン屋さん経営ゲーム ミミの世界のパンのアイコン" loading="lazy" width="64" height="64" style="image-rendering:pixelated"><div><b>パン屋さん経営ゲーム ミミの世界のパン</b><span>ミミが世界のパンをめぐる、タップと放置のパン屋さん</span><em>配信中</em></div></a></li><li><a href="../machigai/"><img src="../machigai/images/icon.png" alt="ぽことまちがいさがしのアイコン" loading="lazy" width="64" height="64" style="image-rendering:pixelated"><div><b>ぽことまちがいさがし</b><span>2まいのドット絵をくらべる、かわいい脳トレ</span><em>配信中</em></div></a></li><li><a href="../nurie/"><img src="../nurie/images/icon.png" alt="のんびりぽこと数字ぬりえのアイコン" loading="lazy" width="64" height="64" style="image-rendering:pixelated"><div><b>のんびりぽこと数字ぬりえ</b><span>番号どおりにぬるだけ。のんびりぬりえ</span><em>配信中</em></div></a></li><li><a href="../kotono/"><img src="../kotono/images/icon.png" alt="ことのと おでかけ大作戦のアイコン" loading="lazy" width="64" height="64" style="image-rendering:pixelated"><div><b>ことのと おでかけ大作戦</b><span>からくり好きの女の子と、3つの場所からの脱出</span><em>配信中</em></div></a></li><li><a href="../lupina/"><img src="../lupina/images/icon.png" alt="ルピナと星の塔のアイコン" loading="lazy" width="64" height="64" style="image-rendering:pixelated"><div><b>ルピナと星の塔</b><span>見習い魔女の進級試験は、塔からの脱出</span><em>配信中</em></div></a></li></ul>
 </div></section>
 
 <section class="alt end"><img class="px pk paint l big" src="images/deco_kohaku_happy.png" alt="" aria-hidden="true" style="--w:32;--h:32;top:40%;--t:7.10s;--d:0.27s"><img class="px pk paint r" src="images/deco_mint_happy.png" alt="" aria-hidden="true" style="--w:32;--h:32;top:20%;--t:5.00s;--d:0.40s"><img class="px pk paint r big" src="images/deco_hayate_happy.png" alt="" aria-hidden="true" style="--w:32;--h:32;top:64%;--t:5.90s;--d:0.53s"><div class="wrap">
